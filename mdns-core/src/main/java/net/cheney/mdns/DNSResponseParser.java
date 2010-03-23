@@ -25,17 +25,17 @@ public class DNSResponseParser {
 		}
 
 		for(int i = 0 ; i < ancount ; i++ ) {
-			DNSRecord answer = parseResponseRecord(buffer);
+			Record answer = parseResponseRecord(buffer);
 			builder.addAnswer(answer);
 		}
 
 		for(int i = 0 ; i < nscount ; i++ ) {
-			DNSRecord nameserver = parseResponseRecord(buffer);
+			Record nameserver = parseResponseRecord(buffer);
 			builder.addNameserver(nameserver);
 		}
 
 		for(int i = 0 ; i < arcount ; i++ ) {
-			DNSRecord additionalRecord = parseResponseRecord(buffer);
+			Record additionalRecord = parseResponseRecord(buffer);
 			builder.addAdditionalRecord(additionalRecord);
 		}
 		
@@ -44,8 +44,8 @@ public class DNSResponseParser {
 
 	private static DNSQuery parseQuestion(ByteBuffer buffer) {
 		String name = parseName(buffer);
-		DNSRecord.Type type = DNSRecord.Type.parse(buffer.getShort());
-		DNSRecord.Class clazz = DNSRecord.Class.parse(buffer.getShort());
+		Record.Type type = Record.Type.parse(buffer.getShort());
+		Record.Class clazz = Record.Class.parse(buffer.getShort());
 		return new DNSQuery(name, type, clazz);
 	}
 
@@ -78,7 +78,7 @@ public class DNSResponseParser {
 		return labels;
 	}
 
-	private static DNSRecord parseResponseRecord(ByteBuffer buffer) {
+	private static Record parseResponseRecord(ByteBuffer buffer) {
 		String name = parseName(buffer);
 		short type = buffer.getShort();
 		short clazz = buffer.getShort();
@@ -86,6 +86,6 @@ public class DNSResponseParser {
 		short rdlength = buffer.getShort();
 		ByteBuffer rdata = (ByteBuffer) buffer.duplicate().position(buffer.position()).limit(buffer.position() + rdlength);
 		buffer.position(buffer.position() + rdlength);
-		return new CachedRecord(DNSRecord.Type.parse(type), DNSRecord.Class.parse(clazz), name, ttl);
+		return new CachedRecord(Record.Type.parse(type), Record.Class.parse(clazz), name, ttl);
 	}
 }

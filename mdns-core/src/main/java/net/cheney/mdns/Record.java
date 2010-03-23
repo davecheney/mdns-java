@@ -1,13 +1,13 @@
 package net.cheney.mdns;
 
-public abstract class DNSRecord {
+public abstract class Record {
 
 	private final String name;
 	private final Type type;
 	private final Class clazz;
 	private final int ttl;
 	
-	public DNSRecord(Type type, Class recordClass, String name, int ttl) {
+	public Record(Type type, Class recordClass, String name, int ttl) {
 		this.name = name;
 		this.type = type;
 		this.clazz = recordClass;

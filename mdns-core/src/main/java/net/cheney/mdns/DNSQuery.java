@@ -3,10 +3,10 @@ package net.cheney.mdns;
 public final class DNSQuery extends DNSMessage {
 
 	private final String name;
-	private final DNSRecord.Type type;
-	private final DNSRecord.Class clazz;
+	private final Record.Type type;
+	private final Record.Class clazz;
 
-	public DNSQuery(String name, DNSRecord.Type type, DNSRecord.Class clazz) {
+	public DNSQuery(String name, Record.Type type, Record.Class clazz) {
 		this.name = name;
 		this.type = type;
 		this.clazz = clazz;
@@ -21,11 +21,11 @@ public final class DNSQuery extends DNSMessage {
 		return name;
 	}
 	
-	public DNSRecord.Type type() {
+	public Record.Type type() {
 		return type;
 	}
 
-	public DNSRecord.Class clazz() {
+	public Record.Class clazz() {
 		return clazz;
 	}
 

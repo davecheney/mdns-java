@@ -10,11 +10,11 @@ public class DNSResponse extends DNSMessage {
 	private final short id;
 	private final short flags;
 	private final List<DNSQuery> questions;
-	private final List<DNSRecord> answers, nameservers, additionalRecords;
+	private final List<Record> answers, nameservers, additionalRecords;
 
 	DNSResponse(short id, short flags, List<DNSQuery> questions,
-			List<DNSRecord> answers, List<DNSRecord> nameservers,
-			List<DNSRecord> additionalRecords) {
+			List<Record> answers, List<Record> nameservers,
+			List<Record> additionalRecords) {
 		this.id = id;
 		this.flags = flags;
 		this.questions = questions;
@@ -31,15 +31,15 @@ public class DNSResponse extends DNSMessage {
 		
 		private final short id, flags;
 		private final List<DNSQuery> questions;
-		private final List<DNSRecord> answers, nameservers, additionalRecords;
+		private final List<Record> answers, nameservers, additionalRecords;
 		
 		Builder(short id, short flags) {
 			this.id = id;
 			this.flags = flags;
 			questions = new ArrayList<DNSQuery>();
-			answers = new ArrayList<DNSRecord>();
-			nameservers = new ArrayList<DNSRecord>();
-			additionalRecords = new ArrayList<DNSRecord>();
+			answers = new ArrayList<Record>();
+			nameservers = new ArrayList<Record>();
+			additionalRecords = new ArrayList<Record>();
 		}
 
 		public void addQuestion(DNSQuery question) {
@@ -50,15 +50,15 @@ public class DNSResponse extends DNSMessage {
 			return new DNSResponse(id, flags, questions, answers, nameservers, additionalRecords);
 		}
 
-		public void addAnswer(DNSRecord answer) {
+		public void addAnswer(Record answer) {
 			answers.add(answer);			
 		}
 
-		public void addNameserver(DNSRecord nameserver) {
+		public void addNameserver(Record nameserver) {
 			nameservers.add(nameserver);
 		}
 
-		public void addAdditionalRecord(DNSRecord additionalRecord) {
+		public void addAdditionalRecord(Record additionalRecord) {
 			additionalRecords.add(additionalRecord);
 		}
 	}
@@ -80,15 +80,15 @@ public class DNSResponse extends DNSMessage {
 		return questions;
 	}
 	
-	public List<DNSRecord> answers() {
+	public List<Record> answers() {
 		return answers;
 	}
 	
-	public List<DNSRecord> nameservers() {
+	public List<Record> nameservers() {
 		return nameservers;
 	}
 	
-	public List<DNSRecord> additionalRecords() {
+	public List<Record> additionalRecords() {
 		return additionalRecords;
 	}
 
