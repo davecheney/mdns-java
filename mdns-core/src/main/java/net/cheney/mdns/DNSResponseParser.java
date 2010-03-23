@@ -44,8 +44,8 @@ public class DNSResponseParser {
 
 	private static DNSQuery parseQuestion(ByteBuffer buffer) {
 		String name = parseName(buffer);
-		DNSRecordType type = DNSRecordType.parse(buffer.getShort());
-		DNSRecordClass clazz = DNSRecordClass.parse(buffer.getShort());
+		DNSRecord.Type type = DNSRecord.Type.parse(buffer.getShort());
+		DNSRecord.Class clazz = DNSRecord.Class.parse(buffer.getShort());
 		return new DNSQuery(name, type, clazz);
 	}
 
@@ -86,6 +86,6 @@ public class DNSResponseParser {
 		short rdlength = buffer.getShort();
 		ByteBuffer rdata = (ByteBuffer) buffer.duplicate().position(buffer.position()).limit(buffer.position() + rdlength);
 		buffer.position(buffer.position() + rdlength);
-		return new DNSRecord(DNSRecordType.parse(type), DNSRecordClass.parse(clazz), name, ttl);
+		return new CachedRecord(DNSRecord.Type.parse(type), DNSRecord.Class.parse(clazz), name, ttl);
 	}
 }
